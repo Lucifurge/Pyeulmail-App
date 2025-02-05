@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Pyeulmails</title>
+    <link rel="icon" href="logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            background-color: #c882da;
+            color: #dcdcdc;
+            font-family: "Fira Code", monospace;
+            background-image: linear-gradient(120deg, #85578b, #111827);
+            background-attachment: fixed;
+            transition: background 0.5s ease;
+            overflow-x: hidden;
+        }
+         /* Remove video, instead use image for the background */
+         .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+
+        .navbar {
+            background: linear-gradient(90deg, #733079, #212642);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: #e358ff !important;
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav .nav-link {
+            color: #dcdcdc !important;
+            font-weight: bold;
+            margin: 0 10px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #f47bff !important;
+            transform: scale(1.1);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            background: linear-gradient(180deg, rgba(126, 77, 138, 0.95), rgba(161, 89, 170, 0.95));
+            border-radius: 15px;
+            color: white;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            margin-top: 1rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin: 20px 0;
+        }
+
+        .hero .btn {
+            background: #d269db;
+            color: white;
+            font-size: 1.2rem;
+            padding: 12px 25px;
+            border-radius: 25px;
+            box-shadow: 0 4px 10px rgba(249, 88, 255, 0.5);
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 50px auto;
+            background-color: #2a2a40;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-container h2 {
+            color: #fd8cf8;
+            margin-bottom: 30px;
+        }
+
+        .form-container input {
+            background-color: #8f498b;
+            border: 1px solid #383850;
+            color: #dcdcdc;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            width: 100%;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-container input:focus {
+            border-color: #f958ff;
+            outline: none;
+        }
+
+        .form-container .btn-primary {
+            background-color: #f17ace;
+            border-color: #f17df5;
+            width: 100%;
+            padding: 12px;
+            font-size: 1.2rem;
+            border-radius: 10px;
+        }
+
+        .form-container .btn-primary:hover {
+            background-color: #ff7be9;
+            border-color: #ff7be2;
+        }
+
+        .form-container .register-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .form-container .register-link a {
+            color: #fa6df3;
+            text-decoration: none;
+        }
+
+        .form-container .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        .social-login {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .social-login img {
+            width: 50px;
+            margin: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .social-login img:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+      <!-- Background GIF as an image -->
+      <img class="background-image" src="saa.gif" alt="Background GIF">
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">PyeulMails</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="login.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="form-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+
+        <div class="social-login">
+            <p>Or login with:</p>
+            <img src="fb.png" alt="Facebook Login" id="fbLoginBtn">
+        </div>
+
+        <div class="register-link">
+            <p>Don't have an account? <a href="register.html">Register here</a></p>
+        </div>
+    </div>
+
+    <script>
+        window.onload = () => {
+            const supabaseUrl = 'https://ehrwsusgkzerozjnddib.supabase.co';
+            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVocndzdXNna3plcm96am5kZGliIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY0Nzk4OTgsImV4cCI6MjA1MjA1NTg5OH0.2gC_pxtLhwrAGA2wR6jvXKuIhNMe_L_IsMWgSa3KKds';
+            const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+            // Handle the login form submission
+            document.getElementById('loginForm').addEventListener('submit', async function (event) {
+                event.preventDefault();
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+
+                // Attempt to login
+                const { user, error } = await _supabase.auth.signInWithPassword({
+                    email: email,
+                    password: password,
+                });
+
+                if (error) {
+                    alert('Error logging in: ' + error.message);
+                } else {
+                    window.location.href = 'index.html'; // Redirect to home page after login
+                }
+            });
+
+            // Facebook login
+            document.getElementById('fbLoginBtn').onclick = async function () {
+                const { user, session, error } = await _supabase.auth.signInWithOAuth({
+                    provider: 'facebook',
+                });
+
+                if (error) {
+                    alert('Error logging in with Facebook: ' + error.message);
+                } else {
+                    window.location.href = 'index.html'; // Redirect to home page after login
+                }
+            };
+        };
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - PyeulMails</title>
+   <link rel="icon" href="logo.ico" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        window.onload = () => {
+        const supabaseUrl = 'https://ehrwsusgkzerozjnddib.supabase.co';
+            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVocndzdXNna3plcm96am5kZGliIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY0Nzk4OTgsImV4cCI6MjA1MjA1NTg5OH0.2gC_pxtLhwrAGA2wR6jvXKuIhNMe_L_IsMWgSa3KKds';
+            const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+
+            async function registerUser(username, password) {
+                const { data, error } = await _supabase.auth.signUp({
+                    email: username,
+                    password: password,
+                });
+                if (error) {
+                    console.error('Error registering user:', error.message);
+                    alert('Registration failed: ' + error.message);
+                } else {
+                    console.log('Registration successful:', data);
+                    alert('User registered successfully!');
+                }
+            }
+
+            document.getElementById('register-btn').addEventListener('click', () => {
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                registerUser(username, password);
+            });
+        };
+    </script>
+    <style>
+        body {
+            background-color: #1e1e2f;
+            color: #dcdcdc;
+            font-family: "Fira Code", monospace;
+            background-image: linear-gradient(120deg, #1f2937, #111827);
+            background-attachment: fixed;
+            transition: background 0.5s ease;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Remove video, instead use image for the background */
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .moving-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            color: rgba(255, 255, 255, 0.2);
+            font-weight: bold;
+            white-space: nowrap;
+            animation: move-text 10s linear infinite;
+        }
+
+        @keyframes move-text {
+            0% {
+                transform: translate(-50%, -50%) translateX(100%);
+            }
+            100% {
+                transform: translate(-50%, -50%) translateX(-100%);
+            }
+        }
+
+        .navbar {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 30px;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #ff9fef;
+        }
+
+        .form-container {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            width: 100%;
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-container h1 {
+            color: #f873f8;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #2a2a40;
+            border: 1px solid #383850;
+            border-radius: 10px;
+            color: #dcdcdc;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-container input:focus {
+            border-color: #58a6ff;
+            box-shadow: 0 0 5px rgba(88, 166, 255, 0.5);
+        }
+
+        .form-container button {
+            background-color: #ff6dc2;
+            color: white;
+            font-size: 1.2rem;
+            padding: 12px 25px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .form-container button:hover {
+            background-color: #f07bff;
+            transform: scale(1.05);
+        }
+
+        .form-container a {
+            display: block;
+            margin-top: 20px;
+            color: #dcdcdc;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .form-container a:hover {
+            color: #ff58e3;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            color: #dcdcdc;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background GIF as an image -->
+    <img class="background-image" src="saa.gif" alt="Background GIF">
+
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <a href="login.html">Login</a>
+    </div>
+
+    <div class="moving-text">Welcome to PyeulMails</div>
+
+    <div class="form-container">
+        <h1>Register for PyeulMails</h1>
+        <input type="text" id="username" placeholder="Email" />
+        <input type="password" id="password" placeholder="Password" />
+        <button id="register-btn">Register</button>
+        <a href="login.html">Already have an account? Login here</a>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Pyeulmails. All Rights Reserved Made By The Husband of Pyeul Lihm.</p>
+    </footer>
+</body>
+</html>
